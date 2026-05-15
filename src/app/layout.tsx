@@ -16,6 +16,7 @@ const playfair = Playfair_Display({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://f1brasil.pages.dev"),
   title: "F1 Brasil | Lendas das Pistas",
   description: "Oito títulos mundiais e um país inteiro acelerando junto. Uma jornada interativa pela história e telemetria dos maiores heróis brasileiros da Fórmula 1.",
   keywords: ["F1", "Fórmula 1", "Brasil", "Ayrton Senna", "Nelson Piquet", "Emerson Fittipaldi", "Telemetria"],
