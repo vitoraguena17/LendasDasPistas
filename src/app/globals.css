@@ -1,6 +1,7 @@
 @import "tailwindcss";
 
 @layer base {
+
   *,
   *::before,
   *::after {
@@ -11,18 +12,24 @@
 
   body {
     background-color: #f2f2f2;
-    color: rgb(0 0 0 / 80%); 
-    font-weight: 300; 
+    color: rgb(0 0 0 / 80%);
+    font-weight: 300;
     font-size: 1.2rem;
   }
 
-  h1, h2, h3, h4, h5, h6 {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
     color: rgb(0 0 0 / 90%);
-    font-weight: 400; 
+    font-weight: 400;
     letter-spacing: 0.1rem;
   }
 
-  ul, ol {
+  ul,
+  ol {
     list-style: none;
   }
 
@@ -30,4 +37,24 @@
     text-decoration: none;
     color: inherit;
   }
+
+  @keyframes scrolldown {
+    0% {
+      transform: translateY(-100%);
+    }
+
+    50% {
+      transform: translateY(100%);
+    }
+
+    100% {
+      transform: translateY(200%);
+    }
+  }
+
+  @layer utilities {
+  .font-cursive {
+    font-family: var(--font-playfair);
+  }
+}
 }

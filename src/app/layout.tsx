@@ -1,25 +1,28 @@
-import { Poppins } from "next/font/google";
+import { Poppins, Playfair_Display } from "next/font/google";
 import "./globals.css";
+import { LanguageProvider } from "@/contexts/language-context";
 
 const poppins = Poppins({ 
   subsets: ["latin"],
   weight: ["300", "400", "500", "600", "700"],
+  variable: '--font-poppins', 
 });
 
-export const metadata = {
-  title: "Ídolos do Asfalto | F1 BR",
-  description: "A trajetória dos pilotos brasileiros na Fórmula 1",
-};
+const playfair = Playfair_Display({
+  subsets: ["latin"],
+  style: ["italic"],
+  variable: '--font-playfair',
+});
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="pt-BR">
-      <body className={`${poppins.className} antialiased`}>
-        {children}
+      <body className={`${poppins.variable} ${playfair.variable} font-sans antialiased`}>
+        <LanguageProvider>
+          <div className="px-6 md:px-12 lg:px-24 mx-auto w-full max-w-480">
+            {children}
+          </div>
+        </LanguageProvider>
       </body>
     </html>
   );
