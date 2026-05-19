@@ -7,9 +7,10 @@
   },
 
   "ui": {
-    "soundtrack": "Soundtrack"
+    "soundtrack": "Soundtrack",
+    "startBtn": "Enter the Track"
   },
-
+  
   "fittipaldi": {
     "name": "Emerson Fittipaldi",
     "nickname": "Emmo",

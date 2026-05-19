@@ -4,8 +4,8 @@ import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { useLanguage } from "@/contexts/language-context";
 
-interface YouTubePlayerProps {
-  videoId: string;
+interface AudioPlayerProps {
+  audioSrc: string;
   trackTitle: string;
   trackArtist: string;
   isActive: boolean;
@@ -13,115 +13,51 @@ interface YouTubePlayerProps {
   textAccentClass?: string;
 }
 
-declare global {
-  interface Window {
-    YT: any;
-    onYouTubeIframeAPIReady: () => void;
-  }
-}
-
-export function YouTubePlayer({
-  videoId,
+export function AudioPlayer({
+  audioSrc,
   trackTitle,
   trackArtist,
   isActive,
   accentClass = "accent-green-500",
   textAccentClass = "text-green-400"
-}: YouTubePlayerProps) {
+}: AudioPlayerProps) {
   const { t } = useLanguage();
-  const playerRef = useRef<any>(null);
-  const containerRef = useRef<HTMLDivElement>(null);
+  const audioRef = useRef<HTMLAudioElement>(null);
 
-  // AQUI: Volume inicial reduzido para 5%
+  // Volume do usuário vai de 0 a 100. O HTML5 usa de 0.0 a 1.0, então dividimos por 100 depois.
   const [userVolume, setUserVolume] = useState(5);
-  const [currentVolume, setCurrentVolume] = useState(0);
   const [isPausedByUser, setIsPausedByUser] = useState(false);
-  const [isPlayerReady, setIsPlayerReady] = useState(false);
   const [showUI, setShowUI] = useState(false);
 
-  const volProxy = useRef({ val: 0 });
-
-  useEffect(() => {
-    if (!window.YT) {
-      const tag = document.createElement("script");
-      tag.src = "https://www.youtube.com/iframe_api";
-      const firstScriptTag = document.getElementsByTagName("script")[0];
-      firstScriptTag.parentNode?.insertBefore(tag, firstScriptTag);
-
-      window.onYouTubeIframeAPIReady = () => {
-        initPlayer();
-      };
-    } else {
-      initPlayer();
-    }
-
-    function initPlayer() {
-      if (containerRef.current && !playerRef.current) {
-        playerRef.current = new window.YT.Player(containerRef.current, {
-          height: "0",
-          width: "0",
-          videoId: videoId,
-          playerVars: {
-            autoplay: 0,
-            controls: 0,
-            disablekb: 1,
-            fs: 0,
-            rel: 0,
-            playsinline: 1,
-          },
-          events: {
-            onReady: () => {
-              setIsPlayerReady(true);
-            },
-          },
-        });
-      }
-    }
-
-    return () => {
-      if (playerRef.current) {
-        playerRef.current.destroy();
-        playerRef.current = null;
-      }
-    };
-  }, [videoId]);
-
-  useEffect(() => {
-    if (playerRef.current && playerRef.current.setVolume && isPlayerReady) {
-      playerRef.current.setVolume(currentVolume);
-    }
-  }, [currentVolume, isPlayerReady]);
-
   useGSAP(() => {
-    if (!isPlayerReady || !playerRef.current) return;
+    if (!audioRef.current) return;
 
     if (isActive && !isPausedByUser) {
       setShowUI(true);
-      if (playerRef.current.playVideo) playerRef.current.playVideo();
+      
+      // O navegador pode bloquear o autoplay se o usuário não tiver clicado na tela ainda.
+      // O .catch() ignora o erro de forma silenciosa para não sujar o console.
+      audioRef.current.play().catch(() => console.log("Aguardando interação do usuário para tocar o áudio"));
 
-      gsap.to(volProxy.current, {
-        val: userVolume,
+      gsap.to(audioRef.current, {
+        volume: userVolume / 100, // Converte 5% para 0.05
         duration: 2,
-        overwrite: "auto",
-        onUpdate: () => setCurrentVolume(volProxy.current.val)
+        overwrite: "auto"
       });
     } else {
-      gsap.to(volProxy.current, {
-        val: 0,
+      gsap.to(audioRef.current, {
+        volume: 0,
         duration: 1.5,
         overwrite: "auto",
-        onUpdate: () => setCurrentVolume(volProxy.current.val),
         onComplete: () => {
           if (!isActive) {
             setShowUI(false);
-            if (playerRef.current && playerRef.current.pauseVideo) {
-              playerRef.current.pauseVideo();
-            }
+            audioRef.current?.pause();
           }
         }
       });
     }
-  }, [isActive, userVolume, isPausedByUser, isPlayerReady]);
+  }, [isActive, userVolume, isPausedByUser]);
 
   const handleVolumeSlider = (e: React.ChangeEvent<HTMLInputElement>) => {
     const val = Number(e.target.value);
@@ -129,16 +65,19 @@ export function YouTubePlayer({
     if (val > 0 && isPausedByUser) {
       setIsPausedByUser(false);
     }
+    // Ajusta imediatamente caso o áudio já esteja tocando
+    if (audioRef.current) {
+        audioRef.current.volume = val / 100;
+    }
   };
 
   return (
     <>
-      <div className="hidden">
-        <div ref={containerRef} />
-      </div>
+      {/* Elemento de Áudio Nativo do Navegador (Invisível) */}
+      <audio ref={audioRef} src={audioSrc} loop preload="auto" className="hidden" />
 
+      {/* Interface Flutuante Idêntica à Anterior */}
       <div className={`fixed bottom-8 right-6 md:right-12 z-50 bg-[#09090b]/90 backdrop-blur-xl border border-zinc-800 rounded-full p-2 pr-6 flex items-center gap-5 transition-all duration-700 shadow-2xl ${showUI ? 'translate-y-0 opacity-100' : 'translate-y-20 opacity-0 pointer-events-none'}`}>
-
         <button
           onClick={() => setIsPausedByUser(!isPausedByUser)}
           className="w-12 h-12 shrink-0 bg-zinc-800 hover:bg-zinc-700 rounded-full flex items-center justify-center text-white transition-colors cursor-pointer"

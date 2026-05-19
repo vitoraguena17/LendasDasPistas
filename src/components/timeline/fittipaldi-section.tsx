@@ -5,9 +5,11 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 import { useLanguage } from "@/contexts/language-context";
 import { api } from "@/lib/api";
-import { YouTubePlayer } from "../audio/yt-player";
+import { AudioPlayer } from "../audio/audio-player"; // Novo Player!
 import { TimelineTrack } from "../ui/timeline-track";
 import { TimelineCard } from "../ui/timeline-card";
+import { ASSETS } from "@/constants/media"; // Constantes!
+import Image from "next/image";
 
 gsap.registerPlugin(ScrollTrigger, useGSAP);
 
@@ -20,17 +22,26 @@ export function FittipaldiSection() {
   const [isSectionActive, setIsSectionActive] = useState(false);
 
   useEffect(() => {
+    let isMounted = true;
+
     async function fetchStats() {
       try {
         const winsRes = await api.get('drivers/emerson_fittipaldi/results/1.json?limit=1');
-        setWins(winsRes.data.MRData.total);
-        setTitles("2");
+        if (isMounted) {
+          setWins(winsRes.data.MRData.total);
+          setTitles("2");
+        }
       } catch (e) {
-        setWins("14");
-        setTitles("2");
+        if (isMounted) {
+          setWins("14");
+          setTitles("2");
+        }
       }
     }
+
     fetchStats();
+
+    return () => { isMounted = false; };
   }, []);
 
   useGSAP(() => {
@@ -79,10 +90,11 @@ export function FittipaldiSection() {
   }, { scope: sectionRef });
 
   return (
-    <section ref={sectionRef} className="relative w-full bg-[#f2f2f2] text-zinc-900 py-32 overflow-hidden">
+    <section id="fittipaldi-section" ref={sectionRef} className="relative w-full bg-[#f2f2f2] text-zinc-900 py-32 overflow-hidden">
 
-      <YouTubePlayer
-        videoId="WfXK7iVPmsw"
+      {/* Usando o novo player e puxando das constantes */}
+      <AudioPlayer
+        audioSrc={ASSETS.AUDIO.FITTIPALDI}
         trackTitle="Lotus 72D"
         trackArtist="Zé Roberto"
         isActive={isSectionActive}
@@ -94,30 +106,50 @@ export function FittipaldiSection() {
 
         <TimelineTrack />
 
-        <div className="text-center md:mb-48 mb-24 ml-10 md:ml-0 timeline-card">
-          <h2 className="text-5xl md:text-8xl font-bold uppercase tracking-widest text-transparent bg-clip-text bg-linear-to-r from-green-600 to-yellow-500 drop-shadow-sm">
-            {t('fittipaldi.name')}
-          </h2>
-          <p className="text-zinc-500 mt-2 font-cursive text-4xl">"{t('fittipaldi.nickname')}"</p>
+        <div className="relative flex w-full justify-between items-center pl-16 md:pl-0 timeline-card md:mb-40 mb-24">
 
-          <div className="flex justify-center gap-6 md:gap-12 mt-12">
-            <div className="bg-white/60 backdrop-blur-md px-6 md:px-8 py-4 rounded-2xl border border-zinc-200 shadow-sm">
-              <span className="block text-5xl font-bold text-zinc-900">{titles}</span>
-              <span className="text-[10px] uppercase tracking-widest text-zinc-500">Títulos Mundiais</span>
-            </div>
-            <div className="bg-white/60 backdrop-blur-md px-6 md:px-8 py-4 rounded-2xl border border-zinc-200 shadow-sm">
-              <span className="block text-5xl font-bold text-zinc-900">{wins}</span>
-              <span className="text-[10px] uppercase tracking-widest text-zinc-500">Vitórias (F1)</span>
+          <div className="card-reveal hidden md:block absolute left-[calc(50%-10px)] top-1/2 -translate-y-1/2 w-5 h-5 rounded-full border-4 border-[#f2f2f2] bg-white shadow-[0_0_20px_rgba(255,255,255,0.8)] z-10 card-dot" />
+
+          <div className="card-reveal hidden md:block w-[45%] h-100 lg:h-125 relative rounded-3xl overflow-hidden shadow-2xl card-image md:order-1" style={{ filter: 'grayscale(100%)' }}>
+            <Image
+              src={ASSETS.FITTIPALDI.PROFILE}
+              alt="Emerson Fittipaldi Perfil"
+              fill
+              sizes="(max-width: 1024px) 50vw, 1000px"
+              priority={true}
+              className="object-cover object-top transition-transform duration-700 hover:scale-105"
+            />
+          </div>
+
+          <div className="w-full md:w-[45%] bg-white/60 backdrop-blur-xl p-8 lg:p-12 rounded-3xl border border-zinc-200 group card-content md:order-2 flex flex-col justify-center">
+            <span className="card-reveal inline-block text-zinc-900 text-[10px] font-bold tracking-widest uppercase mb-4">O Pioneiro</span>
+
+            <h2 className="card-reveal text-5xl md:text-6xl lg:text-7xl font-bold uppercase tracking-widest text-transparent bg-clip-text bg-gradient-to-r from-green-600 to-yellow-500 leading-[0.9] drop-shadow-sm">
+              EMERSON<br />FITTIPALDI
+            </h2>
+
+            <p className="card-reveal text-zinc-500 mt-4 font-cursive text-3xl lg:text-4xl">"{t('fittipaldi.nickname')}"</p>
+
+            <div className="card-reveal flex gap-4 lg:gap-6 mt-10 w-full">
+              <div className="flex-1 bg-white/80 backdrop-blur-md px-2 py-4 lg:py-6 rounded-2xl border border-zinc-200 shadow-sm flex flex-col items-center justify-center transition-colors hover:border-green-400/50">
+                <span className="block text-4xl lg:text-5xl font-bold text-zinc-900">{titles}</span>
+                <span className="text-[9px] lg:text-[10px] uppercase tracking-widest text-zinc-500 mt-1 text-center">Títulos Mundiais</span>
+              </div>
+              <div className="flex-1 bg-white/80 backdrop-blur-md px-2 py-4 lg:py-6 rounded-2xl border border-zinc-200 shadow-sm flex flex-col items-center justify-center transition-colors hover:border-green-400/50">
+                <span className="block text-4xl lg:text-5xl font-bold text-zinc-900">{wins}</span>
+                <span className="text-[9px] lg:text-[10px] uppercase tracking-widest text-zinc-500 mt-1 text-center">Vitórias (F1)</span>
+              </div>
             </div>
           </div>
         </div>
 
         <div className="space-y-32 pb-32">
-          <TimelineCard alignment="left" variant="zinc" period={t('fittipaldi.preF1.period')} title={t('fittipaldi.preF1.title')} text={t('fittipaldi.preF1.text')} imageSrc="/fittipaldi/img-fitti-1.jpg" />
-          <TimelineCard alignment="right" variant="yellow" period={t('fittipaldi.lotus72.period')} title={t('fittipaldi.lotus72.title')} text={t('fittipaldi.lotus72.text')} imageSrc="/fittipaldi/img-fitti-2.jpg" />
-          <TimelineCard alignment="left" variant="yellow" period={t('fittipaldi.mclaren74.period')} title={t('fittipaldi.mclaren74.title')} text={t('fittipaldi.mclaren74.text')} imageSrc="/fittipaldi/img-fitti-3.webp" />
-          <TimelineCard alignment="right" variant="green" period={t('fittipaldi.copersucar.period')} title={t('fittipaldi.copersucar.title')} text={t('fittipaldi.copersucar.text')} imageSrc="/fittipaldi/img-fitti-4.jpg" />
-          <TimelineCard alignment="left" variant="white" period={t('fittipaldi.indy.period')} title={t('fittipaldi.indy.title')} text={t('fittipaldi.indy.text')} imageSrc="/fittipaldi/img-fitti-5.webp" />
+          {/* Constantes Aplicadas! */}
+          <TimelineCard alignment="left" variant="zinc" period={t('fittipaldi.preF1.period')} title={t('fittipaldi.preF1.title')} text={t('fittipaldi.preF1.text')} imageSrc={ASSETS.FITTIPALDI.PRE_F1} priority={true} />
+          <TimelineCard alignment="right" variant="yellow" period={t('fittipaldi.lotus72.period')} title={t('fittipaldi.lotus72.title')} text={t('fittipaldi.lotus72.text')} imageSrc={ASSETS.FITTIPALDI.LOTUS72} priority={true} />
+          <TimelineCard alignment="left" variant="yellow" period={t('fittipaldi.mclaren74.period')} title={t('fittipaldi.mclaren74.title')} text={t('fittipaldi.mclaren74.text')} imageSrc={ASSETS.FITTIPALDI.MCLAREN74} priority={true} />
+          <TimelineCard alignment="right" variant="green" period={t('fittipaldi.copersucar.period')} title={t('fittipaldi.copersucar.title')} text={t('fittipaldi.copersucar.text')} imageSrc={ASSETS.FITTIPALDI.COPERSUCAR} />
+          <TimelineCard alignment="left" variant="white" period={t('fittipaldi.indy.period')} title={t('fittipaldi.indy.title')} text={t('fittipaldi.indy.text')} imageSrc={ASSETS.FITTIPALDI.INDY} />
         </div>
       </div>
     </section>

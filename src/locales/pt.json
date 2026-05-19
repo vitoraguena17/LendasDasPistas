@@ -7,7 +7,8 @@
   },
 
   "ui": {
-    "soundtrack": "Trilha Sonora"
+    "soundtrack": "Trilha Sonora",
+    "startBtn": "Entrar na Pista"
   },
 
   "fittipaldi": {

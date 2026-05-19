@@ -13,12 +13,12 @@ export function Preloader() {
         const tl = gsap.timeline();
         tl.fromTo(logoRef.current,
             { opacity: 0, scale: 0.8 },
-            { opacity: 1, scale: 1, duration: 1.5, ease: "power3.out" }
+            { opacity: 1, scale: 1, duration: 1, ease: "power3.out" }
         )
-            .to({}, { duration: 1.5 })
+            .to({}, { duration: 1.2 })
             .to(containerRef.current, {
                 yPercent: -100,
-                duration: 1.5,
+                duration: 1,
                 ease: "power4.inOut",
             });
     }, []);
