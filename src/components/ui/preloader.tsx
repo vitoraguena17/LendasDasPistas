@@ -11,21 +11,20 @@ export function Preloader() {
 
     useGSAP(() => {
         const tl = gsap.timeline();
-
         tl.fromTo(logoRef.current,
             { opacity: 0, scale: 0.8 },
-            { opacity: 1, scale: 1, duration: 1.2, ease: "power3.out" }
+            { opacity: 1, scale: 1, duration: 1.5, ease: "power3.out" }
         )
+            .to({}, { duration: 1.5 })
             .to(containerRef.current, {
                 yPercent: -100,
-                duration: 1.2,
+                duration: 1.5,
                 ease: "power4.inOut",
-                delay: 0.4
             });
     }, []);
 
     return (
-        <div ref={containerRef} className="fixed inset-0 z-999 bg-zinc-950 flex items-center justify-center">
+        <div ref={containerRef} className="fixed inset-0 z-999 bg-zinc-950 flex flex-col items-center justify-center pointer-events-none">
             <div ref={logoRef} className="flex flex-col items-center gap-4">
                 <div className="w-16 h-16 bg-linear-to-br from-green-500 to-yellow-400 flex items-center justify-center rounded-sm">
                     <span className="text-white text-2xl font-bold">F1</span>

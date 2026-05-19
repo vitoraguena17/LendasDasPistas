@@ -3,6 +3,40 @@
     "titleTop": "Legends",
     "titleMiddle": "of the",
     "titleBottom": "Track",
-    "description": "Eight world titles and an entire country accelerating together. The asphalt holds the technique, bravery, and history of icons who transcended the sport and transformed Sunday mornings into the golden era of our motorsport."
+    "description": "Eight world titles and an entire country accelerating together. The asphalt holds the technique, bravery, and history of icons who transitioned the sport and transformed Sunday mornings into the golden era of our motorsport."
+  },
+
+  "ui": {
+    "soundtrack": "Soundtrack"
+  },
+
+  "fittipaldi": {
+    "name": "Emerson Fittipaldi",
+    "nickname": "Emmo",
+    "preF1": {
+      "period": "1960 - 1969",
+      "title": "The Entrepreneur Rato",
+      "text": "Before Europe, Emerson and his brother Wilson founded a workshop in São Paulo, building go-karts and the iconic 'Fitti-Porsche'. Split between running a business and racing, the pressure was suffocating: motorsport was expensive, and he had to succeed in England almost instantly, as their local entrepreneurship financed his single, risky shot."
+    },
+    "lotus72": {
+      "period": "1972",
+      "title": "The World's Youngest",
+      "text": "Driving the legendary black and gold Lotus 72D, Emerson stunned the planet by capturing his first world title. At just 25 years old, he became the youngest world champion in F1 history at the time (a record that stood for 33 years), officially launching Brazil's dynasty at the top of the podium."
+    },
+    "mclaren74": {
+      "period": "1974",
+      "title": "Consolidating a Champion",
+      "text": "Displaying his strategic side, Emerson shocked the grid by leaving Lotus for the rising McLaren team. Behind the wheel of the classic M23, he faced one of the most balanced and tense seasons in history against Ferrari. This second championship proved his genius didn't rely on a single team, but on a brilliant mind."
+    },
+    "copersucar": {
+      "period": "1976 - 1982",
+      "title": "The Brutal Dream",
+      "text": "At his peak, Emerson left McLaren to pursue his most daring endeavor with Wilson: Copersucar-Fittipaldi, the only Brazilian team in F1 history. This romantic dream collapsed under mechanical failures, a lack of budget against European giants, and merciless, cruel criticism from the local media and public, who never forgave the lack of immediate wins."
+    },
+    "indy": {
+      "period": "1984 - 1996",
+      "title": "Rebirth in America",
+      "text": "When many declared his career over after the toll of the Copersucar years, Emerson crossed the Atlantic to conquer IndyCar. Two victories at the legendary Indianapolis 500 and the 1989 championship cemented Emmo as a timeless global icon."
+    }
   }
 }

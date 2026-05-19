@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 export const api = axios.create({
-  baseURL: '[https://jolpi.ca/ergast/f1/](https://jolpi.ca/ergast/f1/)', 
+  baseURL: 'https://api.jolpi.ca/ergast/f1/', 
   timeout: 10000, 
   headers: {
     'Content-Type': 'application/json',

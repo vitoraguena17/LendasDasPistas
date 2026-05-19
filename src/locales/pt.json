@@ -4,5 +4,39 @@
     "titleMiddle": "das",
     "titleBottom": "Pistas",
     "description": "Oito títulos mundiais e um país inteiro acelerando junto. O asfalto guarda a técnica, a bravura e a história de ícones que transcenderam o esporte e transformaram as manhãs de domingo na era de ouro do nosso automobilismo."
+  },
+
+  "ui": {
+    "soundtrack": "Trilha Sonora"
+  },
+
+  "fittipaldi": {
+    "name": "Emerson Fittipaldi",
+    "nickname": "O Rato",
+    "preF1": {
+      "period": "1960 - 1969",
+      "title": "O Rato Empreendedor",
+      "text": "Antes da Europa, Emerson e seu irmão Wilson fundaram uma oficina em São Paulo, construindo karts e o icônico 'Fitti-Porsche'. Dividido entre administrar e correr, a pressão era asfixiante: o automobilismo era caro e ele precisava dar certo na Inglaterra quase instantaneamente, pois o empreendedorismo local financiava sua única e arriscada chance nas pistas europeias."
+    },
+    "lotus72": {
+      "period": "1972",
+      "title": "O Mais Jovem do Mundo",
+      "text": "Pilotando a lendária Lotus 72D preta e dourada, Emerson assombrou o planeta ao conquistar seu primeiro título mundial. Aos 25 anos, ele se tornou o campeão mais jovem da história da F1 na época (um recorde que durou 33 anos), inaugurando oficialmente a dinastia brasileira no topo do pódio."
+    },
+    "mclaren74": {
+      "period": "1974",
+      "title": "A Consolidação de um Campeão",
+      "text": "Mostrando seu lado estrategista, Emerson chocou o grid ao trocar a Lotus pela ascendente McLaren. No comando do clássico modelo M23, ele enfrentou uma das temporadas mais equilibradas e tensas da história contra a Ferrari. O bicampeonato provou que sua genialidade não dependia de uma única equipe, mas sim de uma mente brilhante."
+    },
+    "copersucar": {
+      "period": "1976 - 1982",
+      "title": "O Sonho Brutal",
+      "text": "No auge da carreira, Emerson deixou a McLaren para realizar o projeto mais ousado de sua vida com Wilson: a Copersucar-Fittipaldi, única equipe brasileira da história da F1. O sonho romântico ruiu sob quebras mecânicas, falta de orçamento contra gigantes europeus e uma crítica implacável e cruel da mídia e do público local, que não perdoou a falta de vitórias imediatas."
+    },
+    "indy": {
+      "period": "1984 - 1996",
+      "title": "O Renascimento na América",
+      "text": "Quando muitos decretavam o fim de sua carreira após o desgaste da Copersucar, Emerson cruzou o Atlântico para conquistar a Fórmula Indy. Duas vitórias nas lendárias 500 Milhas de Indianápolis e o título de 1989 consagraram de vez o Rato como um ícone global imune ao tempo."
+    }
   }
 }

@@ -1,6 +1,7 @@
 import { Header } from "@/components/header/header";
 import { HeroSection } from "@/components/hero/hero-section";
 import { Preloader } from "@/components/ui/preloader";
+import { FittipaldiSection } from "@/components/timeline/fittipaldi-section"
 
 export default function Home() {
   return (
@@ -9,6 +10,7 @@ export default function Home() {
       <Header />
       <main className="w-full flex flex-col">
         <HeroSection />
+        <FittipaldiSection />
       </main>
     </>
   );
