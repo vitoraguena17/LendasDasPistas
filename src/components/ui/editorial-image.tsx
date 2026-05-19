@@ -39,7 +39,7 @@ export function EditorialImage({ src, alt }: EditorialImageProps) {
         WebkitMaskComposite: "source-in",
 
         maskImage: `
-          linear-gradient(to top, transparent 0%, black 15%),
+          linear-gradient(to top, transparent 0%, black 10%),
           linear-gradient(to left, transparent 0%, black 5%),
           linear-gradient(to right, transparent 0%, black 5%)
         `,

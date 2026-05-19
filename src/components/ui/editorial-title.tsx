@@ -14,6 +14,7 @@ interface EditorialTitleProps {
 export function EditorialTitle({ topWord, middleWord, bottomWord }: EditorialTitleProps) {
   const container = useRef<HTMLDivElement>(null);
   const isFirstRender = useRef(true);
+  
   useGSAP(() => {
     if (isFirstRender.current) {
       gsap.fromTo(".gsap-reveal",
@@ -33,7 +34,7 @@ export function EditorialTitle({ topWord, middleWord, bottomWord }: EditorialTit
     <div ref={container} className="flex flex-col items-start leading-[0.85] md:leading-[0.8] uppercase whitespace-nowrap">
       <div className="overflow-hidden pb-2">
         <div className="gsap-reveal">
-          <h1 className="text-[15.5vw] md:text-[11vw] lg:text-[9vw] opacity-30">
+          <h1 className="text-[15.5vw] md:text-[9.5vw] lg:text-[8vw] xl:text-[7.5vw] opacity-30">
             {topWord}
           </h1>
         </div>
@@ -41,14 +42,14 @@ export function EditorialTitle({ topWord, middleWord, bottomWord }: EditorialTit
       <div className="flex items-baseline gap-3 md:gap-6 lg:gap-8 mt-2 md:mt-0">
         <div className="overflow-hidden pb-4">
           <div className="gsap-reveal">
-            <span className="block font-cursive lowercase text-3xl md:text-6xl lg:text-7xl opacity-80">
+            <span className="block font-cursive lowercase text-3xl md:text-5xl lg:text-6xl xl:text-7xl opacity-80">
               {middleWord}
             </span>
           </div>
         </div>
         <div className="overflow-hidden pb-2">
           <div className="gsap-reveal">
-            <h1 className="text-[15.5vw] md:text-[11vw] lg:text-[9vw] opacity-95">
+            <h1 className="text-[15.5vw] md:text-[9.5vw] lg:text-[8vw] xl:text-[7.5vw] opacity-95">
               {bottomWord}
             </h1>
           </div>

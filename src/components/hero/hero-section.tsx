@@ -6,7 +6,7 @@ import { ScrollIndicator } from "./scroll-indicator";
 import { useLanguage } from "@/contexts/language-context";
 
 export function HeroSection() {
-  const { language } = useLanguage();
+  const { t } = useLanguage();
   const titles = {
     PT: { top: "Lendas", middle: "das", bottom: "Pistas" },
     EN: { top: "Legends", middle: "of the", bottom: "Track" }
@@ -24,15 +24,15 @@ export function HeroSection() {
           
           <div className="mix-blend-multiply">
             <EditorialTitle
-              topWord={titles[language].top}
-              middleWord={titles[language].middle}
-              bottomWord={titles[language].bottom}
+              topWord={t('hero.titleTop')}
+              middleWord={t('hero.titleMiddle')}
+              bottomWord={t('hero.titleBottom')}
             />
           </div>
 
           <div className="mt-4 md:mt-0 max-w-[95%] sm:max-w-65 lg:max-w-85 md:mb-4 lg:mb-8 pointer-events-auto">
             <EditorialText
-              content={descriptions[language]}
+              content={t('hero.description')}
               delay={3.2}
             />
           </div>
