@@ -23,8 +23,6 @@ export function AudioPlayer({
 }: AudioPlayerProps) {
   const { t } = useLanguage();
   const audioRef = useRef<HTMLAudioElement>(null);
-
-  // Volume do usuário vai de 0 a 100. O HTML5 usa de 0.0 a 1.0, então dividimos por 100 depois.
   const [userVolume, setUserVolume] = useState(5);
   const [isPausedByUser, setIsPausedByUser] = useState(false);
   const [showUI, setShowUI] = useState(false);
@@ -34,13 +32,10 @@ export function AudioPlayer({
 
     if (isActive && !isPausedByUser) {
       setShowUI(true);
-      
-      // O navegador pode bloquear o autoplay se o usuário não tiver clicado na tela ainda.
-      // O .catch() ignora o erro de forma silenciosa para não sujar o console.
       audioRef.current.play().catch(() => console.log("Aguardando interação do usuário para tocar o áudio"));
 
       gsap.to(audioRef.current, {
-        volume: userVolume / 100, // Converte 5% para 0.05
+        volume: userVolume / 100,
         duration: 2,
         overwrite: "auto"
       });
@@ -65,18 +60,15 @@ export function AudioPlayer({
     if (val > 0 && isPausedByUser) {
       setIsPausedByUser(false);
     }
-    // Ajusta imediatamente caso o áudio já esteja tocando
     if (audioRef.current) {
-        audioRef.current.volume = val / 100;
+      audioRef.current.volume = val / 100;
     }
   };
 
   return (
     <>
-      {/* Elemento de Áudio Nativo do Navegador (Invisível) */}
       <audio ref={audioRef} src={audioSrc} loop preload="auto" className="hidden" />
 
-      {/* Interface Flutuante Idêntica à Anterior */}
       <div className={`fixed bottom-8 right-6 md:right-12 z-50 bg-[#09090b]/90 backdrop-blur-xl border border-zinc-800 rounded-full p-2 pr-6 flex items-center gap-5 transition-all duration-700 shadow-2xl ${showUI ? 'translate-y-0 opacity-100' : 'translate-y-20 opacity-0 pointer-events-none'}`}>
         <button
           onClick={() => setIsPausedByUser(!isPausedByUser)}

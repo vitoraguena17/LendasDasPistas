@@ -5,10 +5,10 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 import { useLanguage } from "@/contexts/language-context";
 import { api } from "@/lib/api";
-import { AudioPlayer } from "../audio/audio-player"; // Novo Player!
+import { AudioPlayer } from "../audio/audio-player";
 import { TimelineTrack } from "../ui/timeline-track";
 import { TimelineCard } from "../ui/timeline-card";
-import { ASSETS } from "@/constants/media"; // Constantes!
+import { ASSETS } from "@/constants/media";
 import Image from "next/image";
 
 gsap.registerPlugin(ScrollTrigger, useGSAP);
@@ -91,8 +91,6 @@ export function FittipaldiSection() {
 
   return (
     <section id="fittipaldi-section" ref={sectionRef} className="relative w-full bg-[#f2f2f2] text-zinc-900 py-32 overflow-hidden">
-
-      {/* Usando o novo player e puxando das constantes */}
       <AudioPlayer
         audioSrc={ASSETS.AUDIO.FITTIPALDI}
         trackTitle="Lotus 72D"
@@ -101,15 +99,10 @@ export function FittipaldiSection() {
         accentClass="accent-green-500"
         textAccentClass="text-green-600"
       />
-
       <div className="relative z-10 max-w-350 mx-auto px-6 pt-20">
-
         <TimelineTrack />
-
         <div className="relative flex w-full justify-between items-center pl-16 md:pl-0 timeline-card md:mb-40 mb-24">
-
           <div className="card-reveal hidden md:block absolute left-[calc(50%-10px)] top-1/2 -translate-y-1/2 w-5 h-5 rounded-full border-4 border-[#f2f2f2] bg-white shadow-[0_0_20px_rgba(255,255,255,0.8)] z-10 card-dot" />
-
           <div className="card-reveal hidden md:block w-[45%] h-100 lg:h-125 relative rounded-3xl overflow-hidden shadow-2xl card-image md:order-1" style={{ filter: 'grayscale(100%)' }}>
             <Image
               src={ASSETS.FITTIPALDI.PROFILE}
@@ -144,7 +137,6 @@ export function FittipaldiSection() {
         </div>
 
         <div className="space-y-32 pb-32">
-          {/* Constantes Aplicadas! */}
           <TimelineCard alignment="left" variant="zinc" period={t('fittipaldi.preF1.period')} title={t('fittipaldi.preF1.title')} text={t('fittipaldi.preF1.text')} imageSrc={ASSETS.FITTIPALDI.PRE_F1} priority={true} />
           <TimelineCard alignment="right" variant="yellow" period={t('fittipaldi.lotus72.period')} title={t('fittipaldi.lotus72.title')} text={t('fittipaldi.lotus72.text')} imageSrc={ASSETS.FITTIPALDI.LOTUS72} priority={true} />
           <TimelineCard alignment="left" variant="yellow" period={t('fittipaldi.mclaren74.period')} title={t('fittipaldi.mclaren74.title')} text={t('fittipaldi.mclaren74.text')} imageSrc={ASSETS.FITTIPALDI.MCLAREN74} priority={true} />
